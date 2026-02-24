@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+    <html>
+        <head>
+            <meta charset="UTF-8"/>
+            <title>Post = The Timeline </title>
+        </head>
+        <body>
+            <h1>The Timeline</h1>
+            <div>
+                <small>
+                    <%= post.user_id ? (post.user_id.first_name + ' ' + post.user_id.last_name) : 'Unknown user' %>
+                    -
+                    <%= post.createdAt ? post.createdAt.toDateString() : 'Unknown date' %>
+                </small>
+                <p><%= post.post %></p>
+                <a href="/">Back to Timeline</a>
+                <a href="/posts/<%= post._id %>/edit">Edit</a>
+                <form action="/posts/delete"method="POST" style="display: inline;">
+                    <input type="hidden" name="id" value="<%= post._id %>">
+                    <button type="submit"> Delete </button>
+                </form>
+            </div>
+
+            <hr />
+
+            <h2>Comments</h2>
+            <% if (comments && comments.length > 0) { %>
+                <% comments.forEach(c => { %>
+                    <div style="margin-bottom: 10px;">
+                        <small>
+                            <%= c.user_id ? (c.user_id.first_name + ' ' + c.user_id.last_name) : 'Unknown user' %>
+                            -
+                            <%= c.createdAt ? c.createdAt.toDateString() : 'Unknown date' %>
+                        </small>
+                        <p><%= c.comment %></p>
+                    </div>
+                <% }) %>
+            <% } else { %>
+                <p>No comments yet.</p>
+            <% } %>
+
+            <h3>Post a comment</h3>
+            <form action="/posts/<%= post._id %>/comments" method="POST">
+                <textarea name="comment" rows="3" cols="40"
+                    placeholder="Write your comment here"></textarea>
+                <br />
+                <label for="comment_user_id">Comment as:</label>
+                <select name="user_id" id="comment_user_id">
+                    <% users.forEach(u => { %>
+                        <option value="<%= u._id %>">
+                            <%= u.first_name %> <%= u.last_name %>
+                        </option>
+                    <% }) %>
+                </select>
+                <br />
+                <button type="submit">Post comment</button>
+            </form>
+        </body>
+        </html>

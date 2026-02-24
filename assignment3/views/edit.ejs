@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Edit Post = The Timeline</title>
+    </head>
+    <body>
+        <h1>The Timeline</h1>
+        <h2>Edit Post</h2>
+        <form action="/posts/update" method="POST">
+            <input type="hidden" name="id" value="<%= post._id %>">
+            <textarea name="post" rows="5" cols="40" required><%= post.post %></textarea>
+            <br />
+            <button type="submit">Update</button>
+        </form>
+        <a href="/posts/<%= post._id %>">Cancel</a>
+    </body>
+    </html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head> 
+        <meta charset="UTF-8"/>
+        <title>The Timeline</title>
+    </head>
+    <body>
+        <h1>The Timeline</h1>
+        <form action="/posts" method="POST">
+            <textarea name="post" rows="5" cols="40"
+                placeholder="Write your post here"></textarea>
+            <br />
+            <label for="user_id">Post as:</label>
+            <select name="user_id" id="user_id">
+                <% users.forEach(u => { %>
+                    <option value="<%= u._id %>">
+                        <%= u.first_name %> <%= u.last_name %>
+                    </option>
+                <% }) %>
+            </select>
+            <br />
+            <button type="submit">Post</button>
+        </form>
+        <hr />
+        <% posts.forEach(p => { %>
+        <div style="margin-bottom: 20px">
+            <small>
+                <%= p.user_id ? (p.user_id.first_name + ' ' + p.user_id.last_name) : 'Unknown user' %>
+                -
+                <%= p.createdAt ? p.createdAt.toDateString() : 'Unknown date' %>
+            </small>
+            <p><%= p.post %></p>
+            <a href="/posts/<%= p._id %>">See more</a>
+        </div>
+        <% }) %>
+    </body>
+    </html>
