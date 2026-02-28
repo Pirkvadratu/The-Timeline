@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+    <html>
+        <head>
+            <meta charset="UTF-8"/>
+            <title>Post = The Timeline </title>
+        </head>
+        <body>
+            <h1>The Timeline</h1>
+            <div>
+                <small><%= post.createdAt ? post.createdAt.toDateString() : 'Unknown' %></small>
+                <p><%= post.post %></p>
+                <a href="/">Back to Timeline</a>
+                <a href="/posts/<%= post._id %>/edit">Edit</a>
+                <form action="/posts/delete"method="POST" style="display: inline;">
+                <input type="hidden" name="id" value="<%= post._id %>">
+                <button type="submit"> Delete </button>
+            </form>
+            </div>
+        </body>
+        </html>
